@@ -1,0 +1,13 @@
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.vercel
+private/
+codes-private.csv
+supabase-setup-and-codes.sql
+coverage
+.DS_Store
+*.log
+*.zip
