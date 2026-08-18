@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#D52B1E" />
+  <meta name="description" content="Fun Zone Arena Word Puzzle Challenge" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <title>Fun Zone Arena Challenge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <nav class="top-nav" aria-label="Primary navigation">
+    <a href="#login" class="nav-brand" aria-label="Open login screen">
+      <span class="gw-mark">FZ</span>
+      <span>Fun Zone Arena</span>
+    </a>
+    <div class="nav-links">
+      <a href="#login" class="demo-link active" data-route="login" id="authLink">Login</a>
+      <a href="#form" class="demo-link auth-only" data-route="form" id="challengeNavLink" hidden>Challenge</a>
+      <a href="#leaderboard" class="demo-link auth-only" data-route="leaderboard" id="leaderboardNavLink" hidden>Leaderboard</a>
+    </div>
+  </nav>
+
+  <section class="page active" id="page-login" data-route="login">
+    <main class="login-screen">
+      <section class="login-panel" aria-labelledby="login-title">
+        <div class="gw-mark login-mark">FZ</div>
+        <div class="eyebrow">Fun Zone Arena</div>
+        <h1 id="login-title">Enter your challenge code.</h1>
+        <form id="loginForm" class="login-form" novalidate>
+          <label for="challengeCode">Challenge Code<span class="req">*</span></label>
+          <input id="challengeCode" name="challengeCode" type="text" required autocomplete="one-time-code" inputmode="text" placeholder="e.g. FZA-9K2M-7Q4X" minlength="8" maxlength="64" />
+          <button class="btn btn-primary" type="submit" id="loginBtn">
+            <span class="spinner"></span>
+            <span class="label">Continue</span>
+          </button>
+        </form>
+        <div id="loginBanner" class="banner" role="alert"></div>
+      </section>
+    </main>
+  </section>
+
+  <section class="page" id="page-form" data-route="form">
+    <a href="#codeGate" class="skip-link">Skip to participant details</a>
+
+    <header class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Fun Zone Arena challenge</div>
+          <h1>Find the hidden service lines.</h1>
+          <p class="hero-copy">
+            Type your name, select your country, enter your unique challenge code, unlock the word puzzle, and submit the service lines you find.
+          </p>
+          <div class="trust-row" aria-label="Challenge summary">
+            <span>Name and nickname display</span>
+            <span>One code, one entry</span>
+            <span>Country reporting</span>
+            <span>Locked dashboard</span>
+          </div>
+        </div>
+
+        <aside class="countdown-card" aria-labelledby="cd-title-form">
+          <h2 id="cd-title-form">Challenge Countdown</h2>
+          <p id="countdownTextForm">Loading challenge window...</p>
+          <div class="countdown-grid" role="timer" aria-live="polite">
+            <div><strong id="cdDaysForm">00</strong><span>Days</span></div>
+            <div><strong id="cdHoursForm">00</strong><span>Hours</span></div>
+            <div><strong id="cdMinsForm">00</strong><span>Mins</span></div>
+            <div><strong id="cdSecsForm">00</strong><span>Secs</span></div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main class="container main-grid">
+      <section class="challenge-column">
+        <div class="card code-card" id="codeGate">
+          <span class="section-tag">Step 1</span>
+          <h2>Confirm your details</h2>
+          <p>
+            Your code is valid. Add your name and country to unlock the protected puzzle and begin your timer.
+          </p>
+          <div id="pendingCodeBadge" class="participant-badge" hidden></div>
+          <form id="codeForm" class="code-form" novalidate>
+            <div class="field compact-field">
+              <label for="participantName">Name<span class="req">*</span></label>
+              <input id="participantName" name="participantName" type="text" required autocomplete="name" placeholder="Type your full name" minlength="2" maxlength="80" />
+            </div>
+            <div class="field compact-field">
+              <label for="country">Country<span class="req">*</span></label>
+              <select id="country" name="country" required>
+                <option value="">Select your country</option>
+              </select>
+            </div>
+            <div class="code-row">
+              <button class="btn btn-primary" type="submit" id="startBtn">
+                <span class="spinner"></span>
+                <span class="label">Start Challenge</span>
+              </button>
+            </div>
+            <p class="helper one-entry-note">For fairness, each participant may complete the competition only once using their assigned challenge code.</p>
+            <p class="helper">Your code stays hidden. The dashboard will show your name with your fun nickname underneath.</p>
+          </form>
+          <div id="participantBadge" class="participant-badge" hidden></div>
+          <div id="formBanner" class="banner" role="alert"></div>
+        </div>
+
+        <section class="card puzzle-card locked" id="puzzleCard" aria-labelledby="puzzle-title">
+          <div class="card-head">
+            <div>
+              <span class="section-tag">Step 2</span>
+              <h2 id="puzzle-title">Word Puzzle</h2>
+            </div>
+            <span class="lock-pill" id="puzzleLockPill">Locked</span>
+          </div>
+          <div class="puzzle-frame">
+            <div class="puzzle-canvas">
+              <img id="puzzleImg" alt="Fun Zone Arena word puzzle grid" hidden />
+            </div>
+            <div class="locked-overlay" id="lockedOverlay">
+              <div class="lock-ico">Locked</div>
+              <strong>Enter your name, country, and valid challenge code to reveal the puzzle.</strong>
+              <span>The puzzle appears after the code is accepted.</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="form-column">
+        <section class="card how-card" aria-labelledby="how-title">
+          <div class="card-head">
+            <h2 id="how-title">How it works</h2>
+            <span class="meta">Fast steps</span>
+          </div>
+          <div class="rules">
+            <div class="rule"><div class="num">1</div><p>Type your name, select your country, and enter your issued challenge code.</p></div>
+            <div class="rule"><div class="num">2</div><p>The protected puzzle image is revealed and the timer continues from your first accepted start.</p></div>
+            <div class="rule"><div class="num">3</div><p>Submit the service lines you found and compare results on the leaderboard.</p></div>
+            <div class="rule"><div class="num">4</div><p>Ranking is based on the correct number of answers and the time it takes to complete the challenge. The faster you submit the correct answers, the higher your chances of being on top of the competition.</p></div>
+          </div>
+        </section>
+
+        <div class="card response-card disabled" id="responseCard">
+          <div class="form-entry-head">
+            <div class="response-title-block">
+              <span class="section-tag">Step 3</span>
+              <h2>Your Response</h2>
+              <p class="response-intro">Add each service line you find in the puzzle, then submit once.</p>
+            </div>
+            <div class="entry-clock" role="timer" aria-live="polite" aria-label="Time elapsed since challenge code was accepted">
+              <span class="entry-clock-label">Time elapsed</span>
+              <strong id="elapsedTimer">00:00:00</strong>
+              <small id="timerHint">Waiting for code</small>
+            </div>
+          </div>
+
+          <div id="activeParticipant" class="active-participant" hidden></div>
+          <form id="challengeForm" novalidate>
+            <fieldset id="responseFields" disabled>
+              <div class="field">
+                <label for="serviceLineInput">
+                  <span>Words Found<span class="req">*</span></span>
+                  <span class="meta">Type and add</span>
+                </label>
+                <div class="word-checklist-card">
+                  <div class="word-checklist-head">
+                    <div class="title">✓ <span>Enter each word you found</span></div>
+                    <div class="progress-pill" id="progressPill"><span id="progressCount">0</span></div>
+                  </div>
+                  <div class="entry-row">
+                    <input id="serviceLineInput" name="serviceLineInput" type="text" autocomplete="off" placeholder="Type a service line and click Add" maxlength="80" />
+                    <button class="btn btn-secondary add-word-btn" type="button" id="addWordBtn">Add</button>
+                  </div>
+                  <p class="helper helper-tight">Answers are scored server-side. Add every service line once.</p>
+                  <div class="selected-grid" id="selectedGrid"></div>
+                </div>
+                <p class="helper ranking-note">Ranking is based on correct answers first, then time taken.</p>
+              </div>
+              <div class="btn-row">
+                <button class="btn btn-primary" type="submit" id="submitBtn">
+                  <span class="spinner"></span>
+                  <span class="label">Submit Response</span>
+                </button>
+                <a class="btn btn-secondary" href="#leaderboard">View Leaderboard</a>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <section class="page" id="page-leaderboard" data-route="leaderboard">
+    <header class="hero leaderboard-hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Live standings</div>
+          <h1>See how everyone is performing.</h1>
+          <p class="hero-copy">The dashboard unlocks after you submit your response. Results show participant names with nicknames underneath.</p>
+        </div>
+        <aside class="countdown-card">
+          <h2>Time Remaining</h2>
+          <p id="countdownTextLb">Loading...</p>
+          <div class="countdown-grid" role="timer" aria-live="polite">
+            <div><strong id="cdDaysLb">00</strong><span>Days</span></div>
+            <div><strong id="cdHoursLb">00</strong><span>Hours</span></div>
+            <div><strong id="cdMinsLb">00</strong><span>Mins</span></div>
+            <div><strong id="cdSecsLb">00</strong><span>Secs</span></div>
+          </div>
+          <div class="leaderboard-refresh-row">
+            <small id="lastUpdated">Waiting for data</small>
+            <button class="btn btn-secondary btn-compact" type="button" id="refreshLeaderboardBtn">Refresh now</button>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main class="container leaderboard-main">
+      <section class="stats-grid" aria-label="Challenge statistics">
+        <div class="stat"><span>Participants</span><strong id="statParticipants">0</strong><small id="statParticipantsD">awaiting entries</small></div>
+        <div class="stat"><span>Countries</span><strong id="statCountries">0</strong><small id="statCountriesD">represented</small></div>
+        <div class="stat"><span>Perfect Scores</span><strong id="statPerfect">0</strong><small id="statPerfectD">highest points achieved</small></div>
+        <div class="stat"><span>Avg Time</span><strong id="statAvgTime">—</strong><small id="statAvgTimeD">to complete</small></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div><span class="meta">Champions</span><h2>Top 3 Podium</h2></div>
+          <span class="meta">Names and nicknames</span>
+        </div>
+        <div id="top3Wrap"></div>
+      </section>
+
+      <section class="section dashboard-grid">
+        <div class="card">
+          <div class="section-head compact"><div><span class="meta">Country Report</span><h2>Participation by Country</h2></div></div>
+          <div id="countryWrap"></div>
+        </div>
+        <div class="card">
+          <div class="section-head compact"><div><span class="meta">Challenge Progress</span><h2>Participation Snapshot</h2></div></div>
+          <div id="progressWrap"></div>
+        </div>
+        <div class="card country-score-card">
+          <div class="section-head compact"><div><span class="meta">Country Performance</span><h2>Country Response Ranking</h2></div></div>
+          <div id="countryScoreWrap"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <div class="section-head compact"><div><span class="meta">Insights</span><h2>Word Insights</h2></div><span class="meta">Unlocks after end</span></div>
+          <div id="wordWrap"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div><span class="meta">Full Standings</span><h2>Full Ranking</h2></div>
+          <a class="btn btn-secondary" href="#form">Submit your response</a>
+        </div>
+        <div class="filters" id="countryFilters" aria-label="Filter leaderboard by country"></div>
+        <div class="card table-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Rank</th><th>Name</th><th>Country</th><th>Score</th><th>Time</th><th>Submitted</th></tr>
+              </thead>
+              <tbody id="leaderboardBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <footer class="footer">
+    <div class="container">© Fun Zone Arena. Challenge experience.</div>
+  </footer>
+
+  <div class="confetti-stage" id="confettiStage" aria-hidden="true"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="260" height="96" viewBox="0 0 260 96" role="img" aria-label="Example logo placeholder">
+  <rect width="260" height="96" rx="14" fill="#ffffff"/>
+  <rect x="8" y="8" width="80" height="80" rx="12" fill="#D52B1E"/>
+  <text x="48" y="57" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="800" fill="#ffffff">FZ</text>
+  <text x="106" y="42" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#0E0E10">YOUR LOGO</text>
+  <text x="106" y="64" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#7A7F8C">Replace this file</text>
+</svg>

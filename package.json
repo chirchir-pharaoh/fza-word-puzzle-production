@@ -1,0 +1,33 @@
+{
+  "name": "fun-zone-arena-word-puzzle",
+  "version": "2.3.2",
+  "description": "Fun Zone Arena word puzzle challenge for Vercel, Supabase Postgres, and Docker with noindex controls, staff names, nicknames, fair country ranking, manual dashboard refresh, and locked post-submit dashboard.",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build && NODE_ENV=development node server/docker-server.js",
+    "build": "node scripts/build-static.mjs",
+    "start": "node server/docker-server.js",
+    "check": "node --check api/index.js && node --check server/domain.js && node --check server/db.js && node --check server/http.js && node --check server/docker-server.js && node --check src/main.js && node --check scripts/build-static.mjs && node --check scripts/generate-codes.mjs && node --check scripts/migrate.mjs && node --check scripts/security-check.mjs && node --check scripts/smoke-mock.mjs && node --check scripts/performance-smoke.mjs && node --check scripts/deployment-verify.mjs",
+    "test": "node --test test/*.test.js",
+    "smoke": "node scripts/smoke-mock.mjs",
+    "security:check": "node scripts/security-check.mjs",
+    "perf:smoke": "node scripts/performance-smoke.mjs",
+    "preflight": "npm run check && npm test && npm run security:check && npm run smoke && npm run perf:smoke && npm run build",
+    "verify:deployment": "node scripts/deployment-verify.mjs",
+    "migrate": "node scripts/migrate.mjs",
+    "codes:generate": "node scripts/generate-codes.mjs",
+    "secret": "node -e \"console.log(require('node:crypto').randomBytes(48).toString('base64url'))\"",
+    "docker:build": "docker build -t fun-zone-arena-word-puzzle .",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down -v",
+    "docker:smoke": "APP_BASE_URL=http://localhost:8080 node scripts/deployment-verify.mjs",
+    "docker:smoke:submit": "APP_BASE_URL=http://localhost:8080 CHALLENGE_ID=fun-zone-arena-2026 ADMIN_API_KEY=local-dev-admin-api-key-at-least-32-characters SMOKE_RESET_BEFORE=true SMOKE_CHALLENGE_CODE=FZADEMO0001 SMOKE_SUBMIT=true node scripts/deployment-verify.mjs",
+    "ci": "npm run preflight"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "8.13.1"
+  }
+}
